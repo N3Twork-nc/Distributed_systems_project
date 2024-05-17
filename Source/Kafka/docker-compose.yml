@@ -7,7 +7,6 @@ services:
     restart: unless-stopped
 
   kafka:
-    build: .
     image: caothi/kafka
     ports:
       - "9092:9092"
