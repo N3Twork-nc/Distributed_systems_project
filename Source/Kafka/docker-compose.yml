@@ -8,6 +8,7 @@ services:
 
   kafka:
     build: .
+    image: caothi/kafka
     ports:
       - "9092:9092"
     environment:

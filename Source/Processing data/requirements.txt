@@ -1,0 +1,4 @@
+# test_kafka.py requirements
+
+confluent-kafka
+python-dotenv 
