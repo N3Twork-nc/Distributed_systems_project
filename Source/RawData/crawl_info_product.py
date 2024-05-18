@@ -1,6 +1,13 @@
 import requests
 import json
 from kafka import KafkaProducer, KafkaConsumer
+import os
+from dotenv import load_dotenv, dotenv_values 
+
+load_dotenv() 
+
+bootstrap_servers = os.getenv("BOOTSTRAP_SERVERS")
+group_id = os.getenv("GROUP_ID_INFO")
 
 product_url_template = "https://tiki.vn/api/v2/products/{}?platform=web&spid={}&version=3"
 headers = {
@@ -8,15 +15,15 @@ headers = {
 }
 
 producer = KafkaProducer(
-    bootstrap_servers=['localhost:9092'],
+    bootstrap_servers=bootstrap_servers,
     value_serializer=lambda v: json.dumps(v).encode('utf-8')
 )
 
 consumer = KafkaConsumer(
     'id',
-    bootstrap_servers=['localhost:9092'],
+    bootstrap_servers=bootstrap_servers,
     auto_offset_reset='earliest',
-    group_id='product-info-group',
+    group_id=group_id,
     value_deserializer=lambda v: json.loads(v.decode('utf-8'))
 )
 

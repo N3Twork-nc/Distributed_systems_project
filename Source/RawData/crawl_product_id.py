@@ -1,13 +1,19 @@
 import requests
 import json
 from kafka import KafkaProducer
+import os
+from dotenv import load_dotenv, dotenv_values 
+
+load_dotenv() 
+
+bootstrap_servers = os.getenv("BOOTSTRAP_SERVERS")
 
 page_url = "https://tiki.vn/api/personalish/v1/blocks/listings?limit=40&include=advertisement&aggregations=2&version=home-persionalized&trackity_id=680c18ed-7be4-1045-443b-c3b0e7083ee1&category=8322&page={}&urlKey=nha-sach-tiki"
 
 headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"}
 
 producer = KafkaProducer(
-    bootstrap_servers=['localhost:9092'],
+    bootstrap_servers=bootstrap_servers,
     value_serializer=lambda v: json.dumps(v).encode('utf-8')
 )
 
