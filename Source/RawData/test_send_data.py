@@ -3,20 +3,29 @@ import json
 from crawl_product_id import crawl_product_id
 from crawl_info_product import crawl_product
 from crawl_product_reviews import crawl_reviews
+import os
+from dotenv import load_dotenv, dotenv_values 
+
+load_dotenv() 
+
+bootstrap_servers = os.getenv("BOOTSTRAP_SERVERS")
+client_id_producer = os.getenv("CLIENT_ID_PRODUCER")
+client_id_consumer = os.getenv("CLIENT_ID_CONSUMER")
 
 producer_config = {
-    'bootstrap.servers': 'localhost:9092',
-    'client.id': '12121'
+    'bootstrap.servers': bootstrap_servers,
+    'client.id': client_id_producer
 }
 
 consumer_config = {
-    'bootstrap.servers': 'localhost:9092',
-    'group.id': '121212',
+    'bootstrap.servers': bootstrap_servers,
+    'group.id': client_id_consumer,
     'auto.offset.reset': 'earliest'
 }
 
 producer = Producer(producer_config)
 consumer = Consumer(consumer_config)
+
 consumer.subscribe(['id', 'info', 'reviews'])
 
 if __name__ == "__main__":
