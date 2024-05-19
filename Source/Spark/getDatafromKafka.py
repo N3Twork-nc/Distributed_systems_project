@@ -1,7 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import from_json
 from pyspark.sql.types import StructType, StructField, StringType
-from kafka import KafkaConsumer
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
 #Khởi tạo spark session

@@ -34,6 +34,7 @@ def crawl_reviews(product_id):
         review_url = review_url_template.format(page, quote(str(product_id)))
         response = requests.get(review_url, headers=headers)
         if response.status_code == 200:
+            if (page>50):print(response.json())
             review_data = response.json()
             if not review_data['data']:
                 break
