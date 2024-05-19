@@ -24,9 +24,11 @@ def crawl_reviews(product_id):
     page = 1
     reviews = []
     while True:
+        print(page)
         review_url = review_url_template.format(page, product_id)
         response = requests.get(review_url, headers=headers)
         if response.status_code == 200:
+            if (page>50):print(response.json())
             review_data = response.json()
             if not review_data['data']:
                 break
@@ -40,6 +42,8 @@ def crawl_reviews(product_id):
 if __name__ == "__main__":
     for message in consumer:
         product_id = message.value['product_id']
+        print(product_id)
         reviews = crawl_reviews(product_id)
+        print(reviews)
         if reviews:
             producer.send('reviews', {'product_id': product_id, 'reviews': reviews})
