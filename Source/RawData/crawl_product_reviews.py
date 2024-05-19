@@ -2,7 +2,8 @@ import requests
 import json
 from kafka import KafkaProducer, KafkaConsumer
 import os
-from dotenv import load_dotenv, dotenv_values 
+from urllib.parse import quote
+from dotenv import load_dotenv
 
 load_dotenv() 
 
@@ -29,29 +30,24 @@ consumer = KafkaConsumer(
 
 def crawl_reviews(product_id):
     page = 1
-    reviews = []
     while True:
-        print(page)
-        review_url = review_url_template.format(page, product_id)
+        review_url = review_url_template.format(page, quote(str(product_id)))
         response = requests.get(review_url, headers=headers)
         if response.status_code == 200:
             if (page>50):print(response.json())
             review_data = response.json()
             if not review_data['data']:
                 break
-            reviews.extend(review_data['data'])
+            for review in review_data['data']:
+                # Gửi từng bình luận lên Kafka
+                producer.send('reviews', {'product_id': product_id, 'review': review})
+                producer.flush()
             page += 1
-            print(review_url)
         else:
             print("Failed to crawl reviews: ", response.status_code)
             break
-    return reviews
 
 if __name__ == "__main__":
     for message in consumer:
         product_id = message.value['product_id']
-        print(product_id)
-        reviews = crawl_reviews(product_id)
-        print(reviews)
-        if reviews:
-            producer.send('reviews', {'product_id': product_id, 'reviews': reviews})
+        crawl_reviews(product_id)
