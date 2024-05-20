@@ -1,6 +1,7 @@
 from cassandra.cluster import Cluster
 import os
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 cassandra_host = os.getenv('IP_CASSANDRA')
@@ -14,9 +15,20 @@ session.set_keyspace('my_keyspace')
 query = "SELECT * FROM id_table"
 result = session.execute(query)
 
-# Print the results
+# Collect the results into a list of dictionaries
+data = []
 for row in result:
-    print(row)
+    data.append({
+        'product_id': row.product_id
+    })
+
+# Get the current directory
+current_directory = os.path.dirname(os.path.abspath(__file__))
+
+# Write the data to a JSON file in the same directory as viewdata.py
+data_file_path = os.path.join(current_directory, 'data.json')
+with open(data_file_path, 'w') as f:
+    json.dump(data, f)
 
 # Execute a SELECT COUNT query to get the number of rows in id_table
 count_query = "SELECT COUNT(*) FROM id_table"
