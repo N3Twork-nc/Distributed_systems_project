@@ -33,10 +33,18 @@ session.set_keyspace('my_keyspace')
 # Create a table if it doesn't exist
 session.execute("CREATE TABLE IF NOT EXISTS id_table (id UUID PRIMARY KEY, product_id TEXT)")
 
+# Function to check if a product_id exists in the table
+def product_id_exists(product_id):
+    query = "SELECT COUNT(*) FROM id_table WHERE product_id = %s ALLOW FILTERING"
+    result = session.execute(query, (product_id,))
+    count = result.one()[0]
+    return count > 0
+
 # Insert data into the table
 for message in consumer:
     product_id = message.value['product_id']
-    session.execute("INSERT INTO id_table (id, product_id) VALUES (uuid(), %s)", (product_id,))
+    if not product_id_exists(product_id):
+        session.execute("INSERT INTO id_table (id, product_id) VALUES (uuid(), %s)", (product_id,))
 
 # Close the session and cluster connection
 session.shutdown()
