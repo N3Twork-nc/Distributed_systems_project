@@ -28,6 +28,7 @@
   <!-- JS File -->
 
   <script src="js/main.js"></script>
+   <script src="js/dataFetcher.js" defer></script>
 
   <!-- Template Main CSS File -->
   <link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -42,13 +43,6 @@
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
-
-    <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Nhập vào ID sản phẩm" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
@@ -129,85 +123,13 @@
         <div class="col-lg-8">
           <div class="row">
 
-            <!-- Sales Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card sales-card">
-                
-                <div class="card-body">
-                  <h5 class="card-title">Tên sách <span>|</span></h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-book"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6 id="bookName">Tên sách</h6>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Sales Card -->
-
-            <!-- Revenue Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card revenue-card">
-                <div class="card-body">
-                  <h5 class="card-title">Giá bán hiện tại<span> |</span></h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-currency-dollar"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6 id="bookPrice">truyền giá vào đây</h6>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div><!-- End Revenue Card -->
-
-            <!-- Customers Card -->
-            <div class="col-xxl-4 col-xl-12">
-
-              <div class="card info-card customers-card">
-                <div class="card-body">
-                  <h5 class="card-title">Nhà xuất bản <span>|</span></h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-person-vcard"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6 id="bookPublisher">Hội Nhà Văn</h6>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-            </div><!-- End Customers Card -->
-
             <!-- Biểu đồ cột lượt bán sản phẩm -->
             <div class="col-12">
               <div class="card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
                 <div class="card-body">
-                  <h5 class="card-title">Lượt bán sản phẩm <span>/ID: 2153246</span></h5>
+                  <h5 class="card-title">Danh mục sách Tiếng anh<span> | </span></h5>
                     <!-- Bar Chart -->
-                    <canvas id="barChart1" style="max-height: 400px;"></canvas>
+                    <canvas id="barChart1" style="max-height: 500px;"></canvas>
                 </div>
               </div>
             </div>
@@ -215,22 +137,11 @@
             <!-- Thêm biểu đồ cột lượt đánh giá sản phẩm -->
             <div class="col-12 mt-4">
               <div class="card">
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
                 <!-- Biểu đồ cột -->
                 <div class="card-body">
-                  <h5 class="card-title">Lượt đánh giá <span>/ID: 2153247</span></h5>
+                  <h5 class="card-title">Danh mục sách Tiếng việt <span> | </span></h5>
                     <!-- Bar Chart -->
-                    <canvas id="barChart2" style="max-height: 400px;"></canvas>                  
+                    <canvas id="barChart2" style="max-height: 500px;"></canvas>                  
                 </div>
               </div>
             </div>
@@ -407,6 +318,21 @@
 
         <!-- Right side columns -->
         <div class="col-lg-4">
+
+        <!-- Thông tin riêng của sách  -->
+        <div class="card">           
+          <div class="card-body pb-0 d-flex align-items-center">
+            <h5 class="card-title">Tìm kiếm thông tin sách <span>|</span></h5>
+            <div class="search-bar">
+              <form class="search-form d-flex align-items-center" method="POST" action="#">
+                <input type="text" id="search-input" name="query" placeholder="Nhập vào ID sản phẩm" title="Enter search keyword">
+                <div id="search-results" class="search-results"></div>
+                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+              </form>
+            </div><!-- End Search Bar -->
+          </div>
+        </div><!-- End -->
+
 
           <!-- Biểu đồ thống kê nhà cung cấp -->
           <div class="card">           

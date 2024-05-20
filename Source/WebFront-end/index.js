@@ -1,9 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-
-// Import fake data
-const books = require('./fakeData');
+const fs = require('fs');
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -13,21 +11,29 @@ app.get('/', (req, res) => {
   res.redirect('/Home');
 });
 
-// Serve index.html at /Home
+// Serve test.html at /Home
 app.get('/Home', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Serve the JavaScript file from the public/js/main directory
-app.get('/js/main/main.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'js', 'main', 'main.js'));
+// Serve the JavaScript file from the public/js directory
+app.get('/js/dataFetcher.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'js', 'dataFetcher.js'));
 });
 
-// API endpoint to get books
-app.get('/fakeData', (req, res) => {
-  console.log("Books data:", books);
-  res.json(books);
+// API endpoint to get data from Cassandra
+app.get('/data', (req, res) => {
+  const dataFilePath = path.join(__dirname, '..', '..', 'Source', 'Cassanndra', 'data.json');
+  
+  fs.readFile(dataFilePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading data file:', err);
+      return res.status(500).send('Internal Server Error');
+    }
+    res.json(JSON.parse(data));
+  });
 });
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
