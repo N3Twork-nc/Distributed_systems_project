@@ -1,13 +1,18 @@
 from confluent_kafka import Producer, Consumer, KafkaError
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+print(os.getenv('Kafka-Broker'))
 # Cấu hình cho producer
 producer_config = {
-    'bootstrap.servers': 'localhost:9092',  # Danh sách các Kafka broker
+    'bootstrap.servers': f"{os.getenv('Kafka-Broker')}:9092",  # Danh sách các Kafka broker
     'client.id': '12121'  # ID của producer
 }
 
 # Cấu hình cho consumer
 consumer_config = {
-    'bootstrap.servers': 'localhost:9092',  # Danh sách các Kafka broker
+    'bootstrap.servers': f"{os.getenv('Kafka-Broker')}:9092",  # Danh sách các Kafka broker
     'group.id': '121212',  # ID của consumer group
     'auto.offset.reset': 'earliest'  # Offset sẽ được reset về đầu partition nếu không có offset đã lưu trữ
 }
@@ -16,7 +21,7 @@ consumer_config = {
 consumer = Consumer(consumer_config)
 
 # Đăng ký topic để tiêu thụ tin nhắn
-topic = 'quickstart'
+topic = 'test'
 consumer.subscribe([topic])
 
 # Tạo producer
