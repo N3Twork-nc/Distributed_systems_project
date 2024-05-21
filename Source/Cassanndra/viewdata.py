@@ -6,7 +6,7 @@ load_dotenv()
 cassandra_host = os.getenv('IP_CASSANDRA')
 
 # Connect to the Cassandra cluster
-cluster = Cluster([cassandra_host], port=30042)
+cluster = Cluster([cassandra_host], port=9042)
 session = cluster.connect()
 session.set_keyspace('my_keyspace')
 

@@ -4,9 +4,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 cassandra_host = os.getenv('IP_CASSANDRA')
+print(cassandra_host)
 
 # Connect to the Cassandra cluster
-cluster = Cluster([cassandra_host], port=30042)
+cluster = Cluster([cassandra_host], port=9042)
 session = cluster.connect()
 
 # Create a keyspace if it doesn't exist
@@ -15,7 +16,7 @@ session.execute("CREATE KEYSPACE IF NOT EXISTS my_keyspace WITH replication = {'
 # Use the keyspace
 session.set_keyspace('my_keyspace')
 
-# Create a table if it doesn't exist
+
 table_name = 'product_information'
 session.execute("DROP TABLE IF EXISTS product_information")
 
@@ -35,8 +36,6 @@ session.execute("""
         PRIMARY KEY (id)
     )
 """)
-
-print("Table 'products' created successfully.")
 
 # Đóng kết nối
 session.shutdown()
