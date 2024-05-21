@@ -5,7 +5,7 @@ import os
 from urllib.parse import quote
 from dotenv import load_dotenv
 
-load_dotenv() 
+load_dotenv()
 
 bootstrap_servers = os.getenv("BOOTSTRAP_SERVERS")
 group_id = os.getenv("GROUP_ID_REVIEWS")
@@ -34,14 +34,18 @@ def crawl_reviews(product_id):
         review_url = review_url_template.format(page, quote(str(product_id)))
         response = requests.get(review_url, headers=headers)
         if response.status_code == 200:
-            if (page>50):print(response.json())
+            if (page > 50):
+                print(response.json())
             review_data = response.json()
             if not review_data['data']:
                 break
             for review in review_data['data']:
-                # Gửi từng bình luận lên Kafka
-                producer.send('reviews', {'product_id': product_id, 'review': review})
-                producer.flush()
+                try:
+                    # Gửi từng bình luận lên Kafka
+                    producer.send('reviews', {'product_id': product_id, 'review': review})
+                    producer.flush()
+                except Exception as e:
+                    print(f"Error while sending review to Kafka for product {product_id}: {e}")
             page += 1
         else:
             print("Failed to crawl reviews: ", response.status_code)

@@ -1,6 +1,7 @@
 from cassandra.cluster import Cluster
 import os
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 cassandra_host = os.getenv('IP_CASSANDRA')
@@ -14,7 +15,8 @@ session.set_keyspace('my_keyspace')
 query = "SELECT * FROM product_information"
 result = session.execute(query)
 
-# Print the results
+# Collect the results into a list of dictionaries
+data = []
 for row in result:
     print(row)
 
