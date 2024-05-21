@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Home - N3TWork</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="img/logo.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- JS File -->
+
+  <script src="js/main.js"></script>
+   <script src="js/dataFetcher.js" defer></script>
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="Home" class="logo d-flex align-items-center">
+        <img src="img/logo.png" alt="">
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="Home">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="tables-general.html">
+              <i class="bi bi-circle"></i><span>General Tables</span>
+            </a>
+          </li>
+          <li>
+            <a href="tables-data.html">
+              <i class="bi bi-circle"></i><span>Data Tables</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="charts-apexcharts.html">
+              <i class="bi bi-circle"></i><span>ApexCharts</span>
+            </a>
+          </li>
+          <li>
+            <a href="charts-echarts.html">
+              <i class="bi bi-circle"></i><span>ECharts</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Charts Nav -->    
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="Home">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
+
+            <!-- Biểu đồ cột lượt bán sản phẩm -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Danh mục sách Tiếng anh<span> | </span></h5>
+                    <!-- Bar Chart -->
+                    <canvas id="barChart1" style="max-height: 500px;"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- Thêm biểu đồ cột lượt đánh giá sản phẩm -->
+            <div class="col-12 mt-4">
+              <div class="card">
+                <!-- Biểu đồ cột -->
+                <div class="card-body">
+                  <h5 class="card-title">Danh mục sách Tiếng việt <span> | </span></h5>
+                    <!-- Bar Chart -->
+                    <canvas id="barChart2" style="max-height: 500px;"></canvas>                  
+                </div>
+              </div>
+            </div>
+
+            <!-- Bảng top sản phẩm yêu thích nhất -->
+            <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Top sản phẩm được yêu thích<span> |</span></h5>
+
+                  <table class="table table-borderless datatable">
+                    <thead>
+                      <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Đặc điểm nổi bật</th>
+                        <th scope="col">Giá bán</th>
+                        <th scope="col">Đánh giá 5 sao</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row"><a href="#">1</a></th>
+                        <th scope="row"><a href="#">#2457</a></th>
+                        <td>Hoa Vẫn Nở Mỗi Ngày</td>
+                        <td><a href="#" class="text-primary">At praesentium minu</a></td>
+                        <td>78.900₫</td>
+                        <td><span class="badge bg-warning">458 lượt</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">2</a></th>
+                        <th scope="row"><a href="#">#2147</a></th>
+                        <td>Xa Ngoài Kia Nơi Loài Tôm Hát</td>
+                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
+                        <td>178.900₫</td>
+                        <td><span class="badge bg-warning">320 lượt</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">3</a></th>
+                        <th scope="row"><a href="#">#2049</a></th>
+                        <td>Khách sạn METROPOL </td>
+                        <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
+                        <td>278.900₫</td>
+                        <td><span class="badge bg-warning">300 lượt</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">4</a></th>
+                        <th scope="row"><a href="#">#2644</a></th>
+                        <td>Book name</td>
+                        <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
+                        <td>58.000₫</td>
+                        <td><span class="badge bg-warning">258 lượt</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">5</a></th>
+                        <th scope="row"><a href="#">#2644</a></th>
+                        <td>Book name</td>
+                        <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                        <td>798.900₫</td>
+                        <td><span class="badge bg-warning">200 lượt</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div><!-- End -->
+
+            <!-- Bảng top sản phẩm bán chạy -->
+            <div class="col-12">
+              <div class="card top-selling overflow-auto">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+                </div>
+
+                <div class="card-body pb-0">
+                  <h5 class="card-title">Top sản phẩm bán chạy <span>| </span></h5>
+                  <table class="table table-borderless">
+                    <thead>
+                      <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Hình ảnh</th>
+                        <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Giá bán</th>
+                        <th scope="col">Lượt bán</th>
+                        <th scope="col">Giảm giá</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><a href="#" class="text-primary fw-bold">1</a></td>
+                        <!-- id -->
+                        <th scope="row"><a href="#">#2644</a></th>
+                        <!-- thumbnail_url -->
+                        <th scope="row"><a href="#"><img src="img/product-1.jpg" alt=""></a></th>
+                        <!-- name -->
+                        <td><a href="#" class="text-primary fw-bold">Book name</a></td>
+                        <!-- current_seller price -->
+                        <td>78.900₫</td>
+                        <!-- quantity_sold -->
+                        <td class="fw-bold">124</td>
+                        <!-- discount rate -->
+                        <td>30%</td> 
+                      </tr>
+                      <tr>
+                        <td><a href="#" class="text-primary fw-bold">2</a></td>
+                        <th scope="row"><a href="#">#2644</a></th>
+                        <th scope="row"><a href="#"><img src="img/product-2.jpg" alt=""></a></th>
+                        <td><a href="#" class="text-primary fw-bold">Book name</a></td>
+                        <td>78.900₫</td>
+                        <td class="fw-bold">98</td>
+                        <td>$4,508</td>
+                      </tr>
+                      <tr>
+                        <td><a href="#" class="text-primary fw-bold">3</a></td>
+                        <th scope="row"><a href="#">#2644</a></th>
+                        <th scope="row"><a href="#"><img src="img/product-3.jpg" alt=""></a></th>
+                        <td><a href="#" class="text-primary fw-bold">Book name</a></td>
+                        <td>78.900₫</td>
+                        <td class="fw-bold">74</td>
+                        <td>$4,366</td>
+                      </tr>
+                      <tr>
+                        <td><a href="#" class="text-primary fw-bold">4</a></td>
+                        <th scope="row"><a href="#">#2644</a></th>
+                        <th scope="row"><a href="#"><img src="img/product-4.jpg" alt=""></a></th>
+                        <td><a href="#" class="text-primary fw-bold">Book name</a></td>
+                        <td>78.900₫</td>
+                        <td class="fw-bold">63</td>
+                        <td>$2,016</td>
+                      </tr>
+                      <tr>
+                        <td><a href="#" class="text-primary fw-bold">5</a></td>
+                        <th scope="row"><a href="#">#2644</a></th>
+                        <th scope="row"><a href="#"><img src="img/product-5.jpg" alt=""></a></th>
+                        <td><a href="#" class="text-primary fw-bold">Book name</a></td>
+                        <td>78.900₫</td>
+                        <td class="fw-bold">41</td>
+                        <td>$3,239</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div><!-- End-->
+
+          </div>
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+        <div class="col-lg-4">
+
+        <!-- Thông tin riêng của sách  -->
+        <div class="card">           
+          <div class="card-body pb-0 d-flex align-items-center">
+            <h5 class="card-title">Tìm kiếm thông tin sách <span>|</span></h5>
+            <div class="search-bar">
+              <form class="search-form d-flex align-items-center" method="POST" action="#">
+                <input type="text" id="search-input" name="query" placeholder="Nhập vào ID sản phẩm" title="Enter search keyword">
+                <div id="search-results" class="search-results"></div>
+                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+              </form>
+            </div><!-- End Search Bar -->
+          </div>
+        </div><!-- End -->
+
+
+          <!-- Biểu đồ thống kê nhà cung cấp -->
+          <div class="card">           
+            <div class="card-body pb-0">
+              <h5 class="card-title">Nhà cung cấp <span>|</span></h5>
+              <div id="providerChart" style="min-height: 400px;" class="echart"></div>                       
+            </div>
+          </div><!-- End-->
+         
+        </div><!-- End Right side columns -->
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>N3TWork</span></strong>. All Rights Reserved
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/chart.js/chart.umd.js"></script>
+  <script src="vendor/echarts/echarts.min.js"></script>
+  <script src="vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="js/barChart.js"></script>
+  <script src="js/providerChart.js"></script>
+  <script src="/js/fetchData.js"></script>
+
+
+  <!-- Template Main JS File -->
+  <script src="/js/main.j"></script>js
+
+
+  <link type="text/css" href="css/style.css" rel="stylesheet" />
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  crawl_product_id:
+    build:
+      context: .
+      dockerfile: Dockerfile_id
+    image: 21521490/crawl-product-id
+
+  crawl_info_product:
+    build:
+      context: .
+      dockerfile: Dockerfile_info
+    image: 21521490/crawl-info-product
+
+  crawl_product_reviews:
+    build:
+      context: .
+      dockerfile: Dockerfile_reviews
+    image: 21521490/crawl-product-reviews
