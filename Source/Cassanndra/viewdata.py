@@ -11,9 +11,12 @@ session = cluster.connect()
 session.set_keyspace('my_keyspace')
 
 # Execute a SELECT query
-query = "SELECT * FROM my_table"
+query = "SELECT * FROM product_information"
 result = session.execute(query)
 
 # Print the results
 for row in result:
     print(row)
+
+session.shutdown()
+cluster.shutdown()
