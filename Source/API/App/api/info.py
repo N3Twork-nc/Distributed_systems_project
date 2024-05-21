@@ -52,3 +52,28 @@ def getCategory(id:str):
         "message": "Get info successfully",
         "data": result 
     }
+
+@app.get("/api/getTopReview")
+def getTopReview():
+    cassandra = CassandraConnector()
+    query = "SELECT id,name,review_count FROM product_information"
+    result = cassandra.query(query)
+    cassandra.close()
+    # Convert result to pandas DataFrame
+    df = pd.DataFrame(result)
+
+    # Extract category names
+    df = pd.DataFrame(result)
+
+    # Sort by review_count
+    df = df.sort_values('review_count', ascending=False)
+
+    # Get top 5
+    top_reviews = df.head(5).to_dict('records')
+
+
+    return {
+        "status": True,
+        "message": "Get top review successfully",
+        "data": top_reviews
+    }
