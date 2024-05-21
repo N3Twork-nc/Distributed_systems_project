@@ -1,7 +1,6 @@
 from cassandra.cluster import Cluster
 import os
 from dotenv import load_dotenv
-import json
 
 load_dotenv()
 cassandra_host = os.getenv('IP_CASSANDRA')
@@ -9,16 +8,13 @@ cassandra_host = os.getenv('IP_CASSANDRA')
 # Connect to the Cassandra cluster
 cluster = Cluster([cassandra_host], port=30042)
 session = cluster.connect()
+
+# Use the keyspace
 session.set_keyspace('my_keyspace')
 
-# Execute a SELECT query
-query = "SELECT * FROM product_information"
-result = session.execute(query)
+# Drop the table if it exists
+session.execute("DROP TABLE IF EXISTS id_table")
 
-# Collect the results into a list of dictionaries
-data = []
-for row in result:
-    print(row)
-
+# Close the session and cluster connection
 session.shutdown()
 cluster.shutdown()
