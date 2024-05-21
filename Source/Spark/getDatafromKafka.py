@@ -7,14 +7,14 @@ from pyspark.sql.types import *
 if __name__ == "__main__":
     spark = (
         SparkSession.builder.appName("Kafka Pyspark Streaming Learning")
-        .master("local[*]")
+        .master("spark://192.168.120.167:31711")
         .getOrCreate()
     )
     spark.sparkContext.setLogLevel("ERROR")
 
 #Đọc dữ liệu từ Kafka
-KAFKA_TOPIC_NAME = ""
-KAFKA_BOOTSTRAP_SERVER = "localhost:9092"
+KAFKA_TOPIC_NAME = "info"
+KAFKA_BOOTSTRAP_SERVER = "10.98.100.102:30350"
 sampleDataframe = (
         spark.readStream.format("kafka")
         .option("kafka.bootstrap.servers", KAFKA_BOOTSTRAP_SERVER)
