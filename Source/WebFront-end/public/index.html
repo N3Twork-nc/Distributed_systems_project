@@ -36,76 +36,28 @@
 
 <body>
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+  <header id="header" class="header fixed-top d-flex align-items-center" style="background-color:rgb(141, 215, 255)">
     <div class="d-flex align-items-center justify-content-between">
       <a href="Home" class="logo d-flex align-items-center">
         <img src="img/logo.png" alt="">
+        <span class="d-none d-lg-block">N3TWork</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
-
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
-
       <li class="nav-item">
         <a class="nav-link " href="Home">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
-      </li><!-- End Dashboard Nav -->
-
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>General Tables</span>
-            </a>
-          </li>
-          <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Data Tables</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Tables Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="charts-apexcharts.html">
-              <i class="bi bi-circle"></i><span>ApexCharts</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ECharts</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Charts Nav -->    
-
+      </li><!-- End Dashboard Nav --> 
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
-
     <div class="pagetitle">
       <h1>Dashboard</h1>
       <nav>
@@ -163,7 +115,54 @@
                   </ul>
                 </div>
 
-                <div class="card-body">
+                <script>
+                  let url = "http://192.168.1.105:5000/api/getTopReview";
+                  fetch(url)
+                      .then((data) => data.json())
+                      .then((data) => {
+                          let str = "";
+                          data.forEach((product, index) => {
+                              str += `
+                                  <tr>
+                                      <th scope="row">${index + 1}</th>
+                                      <td><a href="#">#${product.id}</a></td>
+                                      <td>${product.name}</td>
+                                      <td><a href="#" class="text-primary">Xem chi tiết</a></td>
+                                      <td></td> <!-- Thêm cột cho giá bán, bạn có thể thay đổi dữ liệu tương ứng -->
+                                      <td><span class="badge bg-warning">${product.review_count} lượt</span></td>
+                                  </tr>
+                              `;
+                          });
+                          document.querySelector("#product-table-body").innerHTML = str;
+                      })
+                      .catch((error) => {
+                          console.error('Error fetching data:', error);
+                      });
+                </script>              
+              
+                  <div class="card-body">
+                    <h5 class="card-title">Top sản phẩm được yêu thích<span> |</span></h5>
+                
+                    <table class="table table-borderless datatable">
+                        <thead>
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">Tên sản phẩm</th>
+                                <th scope="col">Đặc điểm nổi bật</th>
+                                <th scope="col">Giá bán</th>
+                                <th scope="col">Đánh giá 5 sao</th>
+                            </tr>
+                        </thead>
+                        <tbody id="product-table-body">
+                            <!-- Nội dung sẽ được cập nhật bởi JavaScript -->
+                        </tbody>
+                    </table>
+                  </div>
+                
+
+
+                <!-- <div class="card-body">
                   <h5 class="card-title">Top sản phẩm được yêu thích<span> |</span></h5>
 
                   <table class="table table-borderless datatable">
@@ -220,9 +219,10 @@
                       </tr>
                     </tbody>
                   </table>
-                </div>
+                </div> -->
               </div>
-            </div><!-- End -->
+            </div>
+            <!-- End -->
 
             <!-- Bảng top sản phẩm bán chạy -->
             <div class="col-12">
@@ -316,23 +316,34 @@
           </div>
         </div><!-- End Left side columns -->
 
-        <!-- Right side columns -->
         <div class="col-lg-4">
-
-        <!-- Thông tin riêng của sách  -->
-        <div class="card">           
-          <div class="card-body pb-0 d-flex align-items-center">
-            <h5 class="card-title">Tìm kiếm thông tin sách <span>|</span></h5>
-            <div class="search-bar">
-              <form class="search-form d-flex align-items-center" method="POST" action="#">
-                <input type="text" id="search-input" name="query" placeholder="Nhập vào ID sản phẩm" title="Enter search keyword">
-                <div id="search-results" class="search-results"></div>
-                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-              </form>
-            </div><!-- End Search Bar -->
+          <!-- Thông tin riêng của sách -->
+          <div class="card">           
+            <h6 class="title-book mb-0">Tìm kiếm thông tin sách</h6>
+            <div class="card-body d-flex align-items-center"> <!-- Thêm class align-items-center -->
+              <div class="search-bar" style="margin-top: 10px;">
+                <form class="search-form d-flex align-items-center" method="POST" action="#">
+                  <input type="text" id="search-input" name="query" class="form-control" placeholder="Nhập vào ID sản phẩm" title="Enter search keyword" style="width: 300px;"> 
+                  <div id="search-results" class="search-results"></div>
+                  <button type="submit" title="Search" class="btn btn-primary"><i class="bi bi-search"></i></button> <!-- Thay đổi kiểu button và màu sắc -->
+                </form>
+              </div><!-- End Search Bar -->
+            </div>
+            
+            <!-- Thêm các trường thông tin sách -->
+            <div class="book-info d-flex flex-column align-items-center"> <!-- Thêm class d-flex và flex-column -->
+              <img src="img/product-1.jpg" alt="Hình ảnh sách" style="width: 300px; height: 200px; margin-bottom: 10px;"> <!-- Thêm margin-bottom để tạo khoảng cách với phần details -->
+              <div class="details">
+                <p><strong>Tên sách:</strong> <span id="book-title">Tên sách</span></p>
+                <p><strong>Nhà xuất bản:</strong> <span id="publisher">Nhà xuất bản</span></p>
+                <p><strong>Giá bán:</strong> <span id="price">Giá bán</span></p>
+                <p><strong>Thể loại:</strong> <span id="category">Thể loại</span></p>
+                <p><strong>Lượt bán:</strong> <span id="sales">Lượt bán</span></p>
+                <p><strong>Lượt đánh giá:</strong> <span id="reviews">Lượt đánh giá</span></p>
+              </div><!-- End details -->
+            </div><!-- End book-info -->
           </div>
-        </div><!-- End -->
-
+        
 
           <!-- Biểu đồ thống kê nhà cung cấp -->
           <div class="card">           
@@ -340,10 +351,9 @@
               <h5 class="card-title">Nhà cung cấp <span>|</span></h5>
               <div id="providerChart" style="min-height: 400px;" class="echart"></div>                       
             </div>
-          </div><!-- End-->
-         
+          </div><!-- End--> 
         </div><!-- End Right side columns -->
-
+      </div><!-- End -->
       </div>
     </section>
 

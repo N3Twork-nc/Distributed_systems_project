@@ -70,6 +70,7 @@ def getTopReview():
 
     # Get top 5
     top_reviews = df.head(5).to_dict('records')
+    print(top_reviews)
 
 
     return {
