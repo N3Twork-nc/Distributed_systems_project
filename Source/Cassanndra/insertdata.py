@@ -16,11 +16,28 @@ session.execute("CREATE KEYSPACE IF NOT EXISTS my_keyspace WITH replication = {'
 session.set_keyspace('my_keyspace')
 
 # Create a table if it doesn't exist
-session.execute("CREATE TABLE IF NOT EXISTS my_table (id UUID PRIMARY KEY, name TEXT)")
+table_name = 'product_information'
+session.execute("DROP TABLE IF EXISTS product_information")
 
-# Insert data into the table
-session.execute("INSERT INTO my_table (id, name) VALUES (uuid(), 'John Doe')")
+# Create the updated products table
+session.execute("""
+    CREATE TABLE product_information (
+        id text,
+        name text,
+        short_url text,
+        thumbnail_url text,
+        discount_rate int,
+        specifications text,
+        all_time_quantity_sold int,
+        rating_average double,
+        review_count int,
+        categories text,
+        PRIMARY KEY (id)
+    )
+""")
 
-# Close the session and cluster connection
+print("Table 'products' created successfully.")
+
+# Đóng kết nối
 session.shutdown()
 cluster.shutdown()
