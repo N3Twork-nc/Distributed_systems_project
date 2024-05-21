@@ -4,7 +4,7 @@ from crawl_product_id import crawl_product_id
 from crawl_info_product import crawl_product
 from crawl_product_reviews import crawl_reviews
 import os
-from dotenv import load_dotenv, dotenv_values 
+from dotenv import load_dotenv
 
 load_dotenv() 
 

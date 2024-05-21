@@ -2,7 +2,7 @@ import requests
 import json
 from kafka import KafkaProducer, KafkaConsumer
 import os
-from dotenv import load_dotenv, dotenv_values 
+from dotenv import load_dotenv
 
 load_dotenv() 
 
@@ -42,3 +42,4 @@ if __name__ == "__main__":
         product_info = crawl_product(product_id)
         if product_info:
             producer.send('info', product_info)
+            producer.flush()
