@@ -2,7 +2,7 @@ import requests
 import json
 from kafka import KafkaProducer, KafkaConsumer
 import os
-from dotenv import load_dotenv, dotenv_values 
+from dotenv import load_dotenv
 
 load_dotenv() 
 
@@ -39,6 +39,10 @@ def crawl_product(product_id):
 if __name__ == "__main__":
     for message in consumer:
         product_id = message.value['product_id']
-        product_info = crawl_product(product_id)
-        if product_info:
-            producer.send('info', product_info)
+        try:
+            product_info = crawl_product(product_id)
+            if product_info:
+                producer.send('info', product_info)
+                producer.flush()
+        except Exception as e:
+            print(f"Error while processing product {product_id}: {e}")
