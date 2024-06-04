@@ -9,4 +9,8 @@ University of Information Technology
 
 ## Abstract
 
+## system architecture
+![image](https://github.com/N3Twork-nc/Distributed_systems_project/assets/93419631/45e0d899-c96f-450a-a970-fed0ab15bd31)
+
+
 ## References
