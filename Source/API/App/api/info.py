@@ -62,8 +62,6 @@ def getTopReview():
     # Convert result to pandas DataFrame
     df = pd.DataFrame(result)
 
-    # Extract category names
-    df = pd.DataFrame(result)
 
     # Sort by review_count
     df = df.sort_values('review_count', ascending=False)

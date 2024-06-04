@@ -116,10 +116,11 @@
                 </div>
 
                 <script>
-                  let url = "http://192.168.1.105:5000/api/getTopReview";
+                  let url = "http://localhost:5000/api/getTopReview";
                   fetch(url)
                       .then((data) => data.json())
                       .then((data) => {
+                          print(data)
                           let str = "";
                           data.forEach((product, index) => {
                               str += `

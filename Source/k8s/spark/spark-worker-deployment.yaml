@@ -1,0 +1,29 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: spark-worker
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: spark-worker
+  template:
+    metadata:
+      labels:
+        component: spark-worker
+    spec:
+      containers:
+      - name: spark-worker
+        image: bde2020/spark-worker:3.2.1-hadoop3.2
+        ports:
+        - containerPort: 8081
+        envFrom:
+        - configMapRef:
+            name: hadoop-configmap
+        env:
+        - name: SPARK_MASTER
+          value: spark://$IP_SPARK_MASTER:7077
+        resources:
+          requests:
+            cpu: 100m
+

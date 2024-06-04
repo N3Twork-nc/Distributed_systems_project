@@ -1,0 +1,38 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: spark-submitter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: spark-submitter
+  template:
+    metadata:
+      labels:
+        component: spark-submitter
+    spec:
+      containers:
+      - name: spark-worker
+        image: bde2020/spark-worker:3.2.1-hadoop3.2
+        command: ["/spark/bin/spark-submit"]
+        args: ["--master", "spark://$IP_SPARK_MASTER:7077", "--packages", "io.streamnative.connectors:pulsar-spark-connector_2.12:3.1.1.3,com.datastax.spark:spark-cassandra-connector_2.12:3.0.0,org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0", "/spark/code/sendDatatoCassandra.py"]
+        ports:
+        - containerPort: 8081
+        envFrom:
+        - configMapRef:
+            name: hadoop-configmap
+        env:
+        - name: SPARK_MASTER
+          value: spark://$IP_SPARK_MASTER:7077
+        resources:
+          requests:
+            cpu: 100m
+        volumeMounts:
+        - name: spark-volume
+          mountPath: /spark/code
+      volumes:
+      - name: spark-volume
+        persistentVolumeClaim:
+          claimName: spark-pvc
+
