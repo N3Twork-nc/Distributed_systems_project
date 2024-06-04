@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crawl-id-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: Big-data-service
+  template:
+    metadata:
+      labels:
+        app: Big-data-service
+    spec:
+      containers:
+      - name: crawl-id-deployment
+        image: 21521490/crawl-product-id
+        env:
+        - name: BOOTSTRAP_SERVERS
+          value: $IP_KAFKA_BROKER

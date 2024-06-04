@@ -1,0 +1,25 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: spark-master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: spark-master
+  template:
+    metadata:
+      labels:
+        component: spark-master
+    spec:
+      containers:
+      - name: spark-master
+        image: bde2020/spark-master:3.3.0-hadoop3.3
+        ports:
+        - containerPort: 7077
+          name: spark
+        - containerPort: 8080
+          name: webui
+        resources:
+          requests:
+            cpu: 100m

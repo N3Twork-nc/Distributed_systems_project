@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+  labels:
+    app: web-service
+spec:
+  selector:
+    app: web-service
+  ports:
+  - name: webui
+    port: 80
+    targetPort: 3000
+  type: LoadBalancer
+  externalIPs:
+  - 10.10.10.245
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web-service
+  template:
+    metadata:
+      labels:
+        app: web-service
+    spec:
+      containers:
+      - name: web
+        image: 21521490/web-frontend
+        ports:
+        - containerPort: 3000
+          name: webui
