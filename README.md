@@ -9,6 +9,7 @@ Project duration: 24/03/2024 - 22/05/2024
 4. Thai Nhat Thu
 
 ## Abstract
+In this project, we aim to develop a distributed computing system that tackles specific challenges in data processing and analysis. The system architecture is designed to handle big data and leverage distributed computing technologies to achieve high performance and scalability.
 
 ## System architecture
 ![image](https://github.com/N3Twork-nc/Distributed_systems_project/assets/93419631/45e0d899-c96f-450a-a970-fed0ab15bd31)
