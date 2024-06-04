@@ -1,6 +1,7 @@
 # Distributed systems project
 Distributed Computing Systems (NT533)  
-University of Information Technology
+University of Information Technology  
+Project duration: 24/03/2024 - 22/05/2024
 ## Member of project
 1. Nguyen Cao Thi
 2. Nguyen Tra Bao Ngan
@@ -18,6 +19,7 @@ University of Information Technology
 <br> [2] The Kubernetes Authors. Overview of Kubernetes. <br> 
 <br> [3] Cao Lê Viết Tiến. 12/05/2021. Kubernetes là gì? Tìm hiểu về cách hoạt động của Kubernetes. <br> 
 <br> [4] Amazon Web Service AWS. What is Apache Kafka? <br> 
-<br>  [5] Amazon Web Service AWS. What is Apache Spark? <br> 
-<br>  [6] Cao Lê Viết Tiến. 19/06/2023. Apache Spark là gì? Tìm hiểu lợi ích khi sử dụng Apache Spark. <br> 
-<br>  [7] Thuy Coi. 25/06/2018. Tìm hiểu về Cassandra. Cassandra là gì? <br> 
+<br> [5] Amazon Web Service AWS. What is Apache Spark? <br> 
+<br> [6] Cao Lê Viết Tiến. 19/06/2023. Apache Spark là gì? Tìm hiểu lợi ích khi sử dụng Apache Spark. <br> 
+<br> [7] Thuy Coi. 25/06/2018. Tìm hiểu về Cassandra. Cassandra là gì? <br> 
+<br> [8] Martin Kratochvíl. 07/02/2024. Building a Data Streaming Pipeline - Airflow, Kafka, Spark, Cassandra. <br>
